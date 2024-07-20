@@ -1,0 +1,123 @@
+/*
+    1- Pensée itérative : La boucle for
+*/
+
+FUNCTION pow(x, n : INTEGER) : INTEGER
+VAR
+    result: INTEGER:=1;
+    i : INTEGER;
+BEGIN
+    FOR i FROM 1 TO n  DO
+        result := result*x;
+    END_FOR
+    RETURN result;
+END
+
+/*
+    2- Pensée récursive : Simplifiez la tâche et applelez-vous
+*/
+
+FUNCTION pow(x, n : INTEGER) : INTEGER
+BEGIN
+    IF (n-1) THEN
+        RETURN x;
+    ELSE
+        RETURN x*pow(x, n-1);
+    END_IF
+END
+
+/*
+    Partie Differents types de recursivités : Exemple 1 : Algorithme itérative
+*/
+
+FUNCTION linearSum(arr:ARRAY_OF INTEGER, n : INTEGER) : INTEGER
+
+BEGIN
+    IF (n-1) THEN
+        RETURN arr[0];
+    ELSE
+        RETURN arr[n-1] + linearSum(arr,n-1);
+    END_IF
+
+END
+
+/*
+    Partie Differents types de recursivités : Exemple 2 : Algorithme de Fibonacci
+*/
+
+FUNCTION fibonacci(n:INTEGER) : INTEGER
+
+BEGIN
+    IF (n=0) THEN
+        RETURN 0;
+    ELSE_IF (n=1) THEN
+        RETURN 1
+    ELSE
+        RETURN fibonacci(n-1) + fibonacci(n-2);        
+    END_IF
+END
+
+
+/*
+    Partie Differents types de recursivités : Exemple 3 : Algorithme d'Holstadter
+*/
+
+/*
+    In mathematics, a halfstadter sequence is a member of 
+    family related integer sequences defined by non-linear
+    recurrence relations
+*/
+
+/*
+    F(0) = 1
+    M(0) = 0
+    F(n) = n-M(F(n-1)), n > 0
+    M(n)= n-F(M(n-1)),, n > 0
+*/
+
+FUNCTION hofstader_female(n : integer) : INTEGER
+BEGIN
+    IF (n = 0) THEN
+        RETURN 1
+    ELSE
+        RETURN n - hofstader_male(hofstader_female(n-1));    
+    END_IF
+END
+
+FUNCTION holstader_male(n : integer) : INTEGER
+BEGIN
+    IF (n = 0) THEN
+        RETURN 0;
+    ELSE
+        RETURN n - hofstader_female(holstader_male(n-1));    
+    END_IF
+END
+
+/*
+    Partie Differents types de recursivités : Exemple 4 : Algorithme de la somme binaire
+*/
+
+FUNCTION binarySum(arr : ARRAY_OF INTEGER, i, n : INTEGER) : INTEGER
+BEGIN
+    IF (n-1) THEN
+        RETURN arr[i];
+    ELSE
+        RETURN binarySum(arr, i, n/2)+binarySum(arr, i+n/2, n/2);    
+    END_IF
+END
+
+/*
+    Partie Implementation des fonctions recursives en JavaScript
+*/
+
+FUNCTION fact(n) : INTEGER
+VAR
+    results: INTEGER;
+BEGIN
+    IF (n=0) THEN
+        results :=1; // results of the factorial is 1
+    ELSE
+        results :=n*fact(n-1); // n! = n*(n-1)!
+    END_IF
+    RETURN results
+END
